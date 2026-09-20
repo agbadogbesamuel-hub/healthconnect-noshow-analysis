@@ -34,9 +34,9 @@ This is a shared, multi-track Experience Lab project. The project progresses wee
 │   ├── HealthConnect_Feature_Validation_Model.py
 │   └── Week6_Project_Summary.docx
 ├── week7-testing-refinement/
-│   ├── HealthConnect_Analytics_Testing_Refinement_Report.docx   # Test log, statistical audit, threshold refinement
+│   ├── HealthConnect_Analytics_Testing_Refinement_Report.pdf   # Test log, statistical audit, threshold refinement
 │   ├── HealthConnect_Model_Testing_Refinement.py                # Reproducible test → finding → action → retest cycle
-│   └── Week7_Project_Summary.docx
+│   └── Week7_Project_Summary.pdf
 └── README.md
 ```
 
