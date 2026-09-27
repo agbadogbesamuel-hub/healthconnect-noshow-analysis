@@ -1,0 +1,293 @@
+{
+  "kpis": {
+    "dataset": {
+      "appointments": 5000,
+      "expected_attendance": 4737
+    },
+    "outcome_share_pct": {
+      "No-Show": 48.46,
+      "Attended": 46.28,
+      "Cancelled": 5.26
+    },
+    "noshow_rate_excl_cancelled_pct": 51.15,
+    "no_reminder_share_pct": 27.32,
+    "lead_time": [
+      {
+        "group": "0-7 j",
+        "noshow_rate": 29.5,
+        "n": 604
+      },
+      {
+        "group": "8-14 j",
+        "noshow_rate": 35.2,
+        "n": 574
+      },
+      {
+        "group": "15-30 j",
+        "noshow_rate": 45.5,
+        "n": 1265
+      },
+      {
+        "group": "31-45 j",
+        "noshow_rate": 57.0,
+        "n": 1187
+      },
+      {
+        "group": "46-60 j",
+        "noshow_rate": 71.4,
+        "n": 1107
+      }
+    ],
+    "history": [
+      {
+        "group": "0",
+        "noshow_rate": 46.3,
+        "n": 2745
+      },
+      {
+        "group": "1",
+        "noshow_rate": 55.9,
+        "n": 1482
+      },
+      {
+        "group": "2",
+        "noshow_rate": 62.1,
+        "n": 419
+      },
+      {
+        "group": "3+",
+        "noshow_rate": 70.3,
+        "n": 91
+      }
+    ],
+    "channel": [
+      {
+        "group": "Email",
+        "noshow_rate": 51.0,
+        "n": 506
+      },
+      {
+        "group": "No Reminder Sent",
+        "noshow_rate": 54.6,
+        "n": 1285
+      },
+      {
+        "group": "SMS",
+        "noshow_rate": 48.0,
+        "n": 1907
+      },
+      {
+        "group": "WhatsApp",
+        "noshow_rate": 52.7,
+        "n": 1039
+      }
+    ],
+    "distance": [
+      {
+        "group": "0-5 km",
+        "noshow_rate": 48.7,
+        "n": 1103
+      },
+      {
+        "group": "5-10 km",
+        "noshow_rate": 49.6,
+        "n": 1681
+      },
+      {
+        "group": "10-20 km",
+        "noshow_rate": 52.3,
+        "n": 1578
+      },
+      {
+        "group": "20-30 km",
+        "noshow_rate": 58.4,
+        "n": 305
+      },
+      {
+        "group": "30-50 km",
+        "noshow_rate": 70.0,
+        "n": 70
+      }
+    ],
+    "risk_segments": [
+      {
+        "group": "Low Risk",
+        "noshow_rate": 34.5,
+        "n": 1428,
+        "share_pct": 30.1
+      },
+      {
+        "group": "Medium Risk (history only)",
+        "noshow_rate": 45.6,
+        "n": 1015,
+        "share_pct": 21.4
+      },
+      {
+        "group": "Medium Risk (lead only)",
+        "noshow_rate": 59.1,
+        "n": 1317,
+        "share_pct": 27.8
+      },
+      {
+        "group": "High Risk",
+        "noshow_rate": 70.5,
+        "n": 977,
+        "share_pct": 20.6
+      }
+    ]
+  },
+  "model_single_split": {
+    "baseline_0.50": {
+      "accuracy": 0.624,
+      "precision": 0.618,
+      "recall": 0.69,
+      "f1": 0.652,
+      "flag_rate": 0.57
+    },
+    "refined_0.40": {
+      "accuracy": 0.613,
+      "precision": 0.586,
+      "recall": 0.828,
+      "f1": 0.686,
+      "flag_rate": 0.723
+    },
+    "roc_auc": 0.665
+  },
+  "segment_errors": {
+    "baseline_0.50": [
+      {
+        "group": "Low Risk",
+        "n": 332,
+        "true_noshows": 118,
+        "missed_share_of_segment_pct": 34.3,
+        "missed_share_of_true_noshows_pct": 96.6,
+        "flag_rate_pct": 2.4
+      },
+      {
+        "group": "Medium Risk (history only)",
+        "n": 237,
+        "true_noshows": 103,
+        "missed_share_of_segment_pct": 21.9,
+        "missed_share_of_true_noshows_pct": 50.5,
+        "flag_rate_pct": 42.2
+      },
+      {
+        "group": "Medium Risk (lead only)",
+        "n": 348,
+        "true_noshows": 205,
+        "missed_share_of_segment_pct": 6.3,
+        "missed_share_of_true_noshows_pct": 10.7,
+        "flag_rate_pct": 86.2
+      },
+      {
+        "group": "High Risk",
+        "n": 268,
+        "true_noshows": 180,
+        "missed_share_of_segment_pct": 0.0,
+        "missed_share_of_true_noshows_pct": 0.0,
+        "flag_rate_pct": 100.0
+      }
+    ],
+    "refined_0.40": [
+      {
+        "group": "Low Risk",
+        "n": 332,
+        "true_noshows": 118,
+        "missed_share_of_segment_pct": 24.1,
+        "missed_share_of_true_noshows_pct": 67.8,
+        "flag_rate_pct": 22.9
+      },
+      {
+        "group": "Medium Risk (history only)",
+        "n": 237,
+        "true_noshows": 103,
+        "missed_share_of_segment_pct": 10.1,
+        "missed_share_of_true_noshows_pct": 23.3,
+        "flag_rate_pct": 69.6
+      },
+      {
+        "group": "Medium Risk (lead only)",
+        "n": 348,
+        "true_noshows": 205,
+        "missed_share_of_segment_pct": 0.0,
+        "missed_share_of_true_noshows_pct": 0.0,
+        "flag_rate_pct": 100.0
+      },
+      {
+        "group": "High Risk",
+        "n": 268,
+        "true_noshows": 180,
+        "missed_share_of_segment_pct": 0.0,
+        "missed_share_of_true_noshows_pct": 0.0,
+        "flag_rate_pct": 100.0
+      }
+    ]
+  },
+  "cross_validation": {
+    "baseline_0.50": {
+      "accuracy": {
+        "mean": 0.637,
+        "std": 0.012
+      },
+      "precision": {
+        "mean": 0.64,
+        "std": 0.015
+      },
+      "recall": {
+        "mean": 0.662,
+        "std": 0.016
+      },
+      "f1": {
+        "mean": 0.651,
+        "std": 0.01
+      },
+      "flag_rate": {
+        "mean": 0.529,
+        "std": 0.019
+      }
+    },
+    "refined_0.40": {
+      "accuracy": {
+        "mean": 0.616,
+        "std": 0.01
+      },
+      "precision": {
+        "mean": 0.59,
+        "std": 0.007
+      },
+      "recall": {
+        "mean": 0.817,
+        "std": 0.005
+      },
+      "f1": {
+        "mean": 0.685,
+        "std": 0.006
+      },
+      "flag_rate": {
+        "mean": 0.708,
+        "std": 0.008
+      }
+    },
+    "roc_auc": {
+      "mean": 0.683,
+      "std": 0.013
+    }
+  },
+  "operational_load_per_1000": {
+    "baseline_0.50": {
+      "flagged": 570,
+      "noshows_caught": 353,
+      "false_alarms": 218
+    },
+    "refined_0.40": {
+      "flagged": 723,
+      "noshows_caught": 424,
+      "false_alarms": 300
+    },
+    "high_risk_calls_per_1000": 206
+  },
+  "scenarios": {
+    "no_reminder_to_sms_rate": 85,
+    "high_risk_to_medium_lead_rate": 111
+  }
+}

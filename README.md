@@ -1,7 +1,7 @@
 # HealthConnect Clinic — Appointment No-Show Analysis
 
-**AnalystLab Africa Experience Lab | Data Analytics Track — Week 7**
-*(Continuity project — builds on Weeks 4-6: problem understanding, analysis, advanced validation)*
+**AnalystLab Africa Experience Lab | Data Analytics Track — Week 8 (Final)**
+*(Continuity project — Weeks 4-8: problem understanding → analysis → validation → testing → final decision support)*
 
 ## 📌 Project Overview
 
@@ -16,27 +16,34 @@ This is a shared, multi-track Experience Lab project. The project progresses wee
 | Week 4 | Problem Understanding → Resource Review → Solution Planning |
 | Week 5 | Analysis → Development → Initial Implementation |
 | Week 6 | Integration → Advanced Development → Validation |
-| **Week 7** | **Testing → Refinement → End-to-End Validation** |
-| Week 8 | Final Integration → Presentation |
+| Week 7 | Testing → Refinement → End-to-End Validation |
+| **Week 8** | **Final Integration → Presentation** |
 
 ## 🗂️ Repository Structure
 
 ```
-├── week4-kickoff/
-│   ├── Initial_Analysis_Document.docx
-│   └── Week4_Project_Summary.docx
-├── week5-analysis/
+├── week4-kickoff/                              # Problem understanding
+│   ├── Initial_Analysis_Document.pdf
+│   └── Week4_Project_Summary.pdf
+├── week5-analysis/                             # Cleaning, EDA, KPIs
 │   ├── HealthConnect_Appointment_Data_cleaned.csv
-│   ├── Initial_HealthConnect_Analytics_Report.docx
-│   └── Week5_Project_Summary.docx
-├── week6-advanced-analytics/
-│   ├── HealthConnect_Advanced_Analytics_Report.docx
+│   ├── Initial_HealthConnect_Analytics_Report.pdf
+│   └── Week5_Project_Summary.pdf
+├── week6-advanced-development-validation/      # Chi² validation, risk segmentation, model artefact
+│   ├── HealthConnect_Advanced_Analytics_Report.pdf
 │   ├── HealthConnect_Feature_Validation_Model.py
-│   └── Week6_Project_Summary.docx
-├── week7-testing-refinement/
-│   ├── HealthConnect_Analytics_Testing_Refinement_Report.pdf   # Test log, statistical audit, threshold refinement
-│   ├── HealthConnect_Model_Testing_Refinement.py                # Reproducible test → finding → action → retest cycle
+│   └── Week6_Project_Summary.pdf
+├── Week 7-testing-refinement/                  # KPI audit, anomaly test, threshold refinement
+│   ├── HealthConnect_Analytics_Testing_Refinement_Report.pdf
+│   ├── HealthConnect_Model_Testing_Refinement.py
 │   └── Week7_Project_Summary.pdf
+├── week8-final-integration/                    # Final decision-support package
+│   ├── HealthConnect_Final_Analytics.py                             # Reproducible final run
+│   ├── outputs/final_kpis.json                                      # Single source for every final figure
+│   ├── figures/                                                     # Dashboard + 6 charts (PNG)
+│   ├── HealthConnect_Final_Analytics_Decision_Support_Package.docx/.pdf
+│   ├── HealthConnect_Final_Analytics_Presentation.pptx/.pdf         # 14 slides, native charts
+│   └── Week8_Project_Summary.docx/.pdf
 └── README.md
 ```
 
@@ -44,51 +51,68 @@ This is a shared, multi-track Experience Lab project. The project progresses wee
 
 **File:** `HealthConnect_Appointment_Data.csv` (5,000 fictional, anonymized appointment records, 18 variables). The original file is never modified; a cleaned copy is maintained separately (`week5-analysis/HealthConnect_Appointment_Data_cleaned.csv`).
 
-## 🔍 Week 7 — What's New (not a repeat of Week 6)
+## 📈 Final Dashboard
 
-Week 7 does not recompute the analysis. It **tests** what was already built, following a mandatory Test → Finding → Action → Retest cycle:
+![HealthConnect final dashboard](week8-final-integration/figures/dashboard_final.png)
 
-| Test | Result |
+## 🔍 Week 8 — Final Analytics & Decision Support (no new analysis)
+
+| Final check | Result |
 |---|---|
-| **KPI accuracy audit** | 13 previously published values (lead time, no-show history, reminder channel) independently recalculated — **100% match**, no calculation errors found |
-| **Statistical anomaly investigation** | The counter-intuitive "0-7 day lead time × 3+ prior no-shows" heatmap cell (23%) tested with a Wilson 95% CI — **confirmed as small-sample noise** (n=13, CI = [8.2%, 50.3%]), not a genuine reversal |
-| **Cross-track model error analysis (mandatory)** | Week 6 model's errors decomposed by risk segment — revealed the default threshold missed **34.3% of true no-shows** in the "Low Risk" segment despite 0% missed in "High Risk" |
-| **Refinement action** | Classification threshold lowered from 0.50 to 0.40, justified by asymmetric business cost (a missed no-show costs more than an unnecessary reminder) |
-| **Retest result** | False-negative rate on "Low Risk" dropped from 34.3% to **24.1%**; F1-score improved from 0.652 to **0.686**; "High Risk" segment unaffected (still 0% missed) |
+| **Final KPI confirmation** | Every dashboard KPI recomputed from the cleaned data — identical to Weeks 5-7 |
+| **Threshold cross-validation** (Week 7 open item) | 5-fold stratified CV confirms 0.40 over 0.50: F1 **0.685 ± 0.006** vs 0.651 ± 0.010, recall **0.817** vs 0.662 |
+| **Dashboard label validation** | The Week 7 "34.3% missed in Low Risk" was correct but mislabelled: its denominator is *all* Low Risk appointments. As a share of *true* no-shows the model misses **96.6%** (0.50) and still **67.8%** (0.40) — now labelled explicitly |
+| **Operational load** (for Project Management) | At 0.40, 723 of every 1,000 appointments are flagged — too many for personal calls, hence a tiered protocol |
+| **Reproducibility fix** | Week 6-7 scripts used an absolute path missing from the repo; the Week 8 script uses relative paths |
 
-**Headline insight:** A model that looked solid on aggregate accuracy (62.4%) was silently failing on over a third of no-shows in its "safest" segment. Testing by business segment — not just by overall score — is what surfaced this, and the fix was a simple, well-justified threshold adjustment rather than a model rebuild.
+**Final validated patterns**
 
-## 🔗 Cross-Track Integration (Week 7 — tested, not just built)
+- Booking lead time is the #1 driver: **29.5% → 71.4%** no-show (0-7 vs 46-60 days, χ² p < 0.0001)
+- Patient history is #2: **46.3% → 70.3%** (0 vs 3+ previous no-shows)
+- **High Risk** segment (lead > 30 days AND ≥ 1 previous no-show): **20.6%** of appointments, **70.5%** no-show
+- **27.3%** of appointments receive no reminder at all (54.6% no-show vs 48.0% with SMS)
 
-Building on the Week 6 integration artefact (a baseline model using 4 Data-Analytics-validated features), Week 7 tested that artefact rather than accepting its aggregate score at face value:
+## ✅ Final Recommendation — 3-tier reminder protocol (per 1,000 expected appointments)
 
-- **Test performed:** error breakdown by the Week 6 risk segmentation (Low / Medium / Medium / High Risk)
-- **Finding:** severe imbalance in false negatives across segments (34.3% vs. 0%)
-- **Action:** threshold recalibration (0.50 → 0.40)
-- **Retest:** confirmed improvement without harming the "High Risk" segment
-- **Evidence:** `HealthConnect_Model_Testing_Refinement.py` (fully reproducible, prints before/after comparison)
+| Tier | Who | Action | Volume |
+|---|---|---|---|
+| 1 — Enhanced | High Risk segment | Personal confirmation call + mid-lead reminder + SMS D-1 | ~206 |
+| 2 — Monitored | Other appointments flagged by the model (p ≥ 0.40) | Double SMS (D-7 and D-1) | ~517 |
+| 3 — Standard | Everyone else | Standard SMS D-1 — never zero reminders | ~277 |
 
-## ✅ Recommendations (Week 7, refined from Week 6)
+Plus: SMS as default channel, a mid-lead touchpoint for bookings > 30 days, and an 8-week pilot with a control group before rollout. The model is used to **prioritise, never to exclude** a patient from reminders.
 
-1. Adopt a 0.40 classification threshold (not 0.50) for any operational use of the no-show prediction model.
-2. Do not base business rules on heatmap cells with fewer than 30 observations (now clearly flagged in the refined visualization).
-3. Maintain standard reminders even for "Low Risk" patients — this segment still carries a non-trivial 34.5% no-show rate, and even the refined model still misses roughly a quarter of them.
+## 🔗 HC-POD Final Integration
 
-Full details, statistical tests, and before/after visualizations are available in `week7-testing-refinement/HealthConnect_Analytics_Testing_Refinement_Report.docx`.
+Solo cohort: the Data Science role is self-assumed (as in Weeks 6-7). Outputs to the other tracks are delivered as documented hand-overs; no feedback was received from them, and this is stated rather than claimed.
+
+| Flow | Final contribution | Status |
+|---|---|---|
+| Data Analytics ↔ Data Science | Validated features, segments, CV of the threshold / candidate model at 0.40 | Integrated & tested |
+| Data Analytics → Project Management | Decision table, operational load, monitoring KPIs | Delivered — capacity confirmation pending |
+| Data Analytics → ML Engineering | Final model input/output specification | Delivered — pipeline constraints pending |
+| Data Analytics → Generative AI | Human-escalation rule for Tier 1 appointments | Delivered |
+
+## ⚠️ Limitations
+
+Correlational analysis (no causal proof) · fictional dataset (48% no-show vs 10-30% in practice) · moderate precision (~300 false alerts per 1,000 appointments) · weak coverage of the Low Risk segment · no temporal validation.
+
+## ▶️ Reproduce
+
+```bash
+cd week8-final-integration
+python HealthConnect_Final_Analytics.py   # regenerates outputs/final_kpis.json and figures/
+```
 
 ## 🛠️ Tools & Techniques
 
-- Python (pandas, matplotlib, scipy) for statistical validation and hypothesis testing
-- Wilson confidence interval and binomial testing for small-sample anomaly investigation
-- scikit-learn for model error analysis and threshold-based refinement
-
-## ▶️ Next Steps (Week 8)
-
-- Consolidate Weeks 4-7 into a coherent final narrative for the project presentation.
-- Validate the operational feasibility of the 0.40 threshold recommendation from a Project Management perspective.
-- Present the full validation → test → refinement cycle as a demonstration of analytical rigor.
+- Python (pandas, matplotlib, scipy) — cleaning, KPIs, Chi² tests, Wilson confidence intervals
+- scikit-learn — logistic regression, threshold refinement, stratified k-fold cross-validation
+- Word / PowerPoint — final report and presentation
 
 ## 👤 Author
 
 Josfrid AGBADOGBE, Data Analytics Intern, AnalystLab Africa Experience Lab
-*Week 7 — HealthConnect Testing, Refinement & End-to-End Validation*
+*Week 8 — HealthConnect Final Analytics, Dashboard & Business Insights*
+
+#AnalystLabAfrica
