@@ -41,9 +41,9 @@ This is a shared, multi-track Experience Lab project. The project progresses wee
 │   ├── HealthConnect_Final_Analytics.py                             # Reproducible final run
 │   ├── outputs/final_kpis.json                                      # Single source for every final figure
 │   ├── figures/                                                     # Dashboard + 6 charts (PNG)
-│   ├── HealthConnect_Final_Analytics_Decision_Support_Package.docx/.pdf
-│   ├── HealthConnect_Final_Analytics_Presentation.pptx/.pdf         # 14 slides, native charts
-│   └── Week8_Project_Summary.docx/.pdf
+│   ├── HealthConnect_Final_Analytics_Decision_Support_Package.pdf
+│   ├── HealthConnect_Final_Analytics_Presentation.pdf               # 14 slides
+│   └── Week8_Project_Summary.pdf
 └── README.md
 ```
 

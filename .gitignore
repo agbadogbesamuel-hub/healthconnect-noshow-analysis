@@ -1,0 +1,3 @@
+# Editable Office sources stay local; the repository publishes the PDF versions
+*.docx
+*.pptx
